@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmedwb4wiswdg"]
+
+[ext_resource type="PackedScene" uid="uid://b06qv25nupw5d" path="res://assets/red_pusher.glb" id="1_8wrhj"]
+[ext_resource type="Material" uid="uid://6g3nsnkmgmom" path="res://assets/new_standard_material_3d.tres" id="2_n4y0c"]
+
+[node name="Node3D" instance=ExtResource("1_8wrhj")]
+
+[node name="Red pusher_001" parent="." index="0"]
+transform = Transform3D(0.0796614, 0, 0, 0, 0.0564131, 0, 0, 0, 0.0796614, 0, 0.0373276, 0)
+material_override = ExtResource("2_n4y0c")

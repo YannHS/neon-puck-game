@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgifryudbqyy0"]
+
+[ext_resource type="PackedScene" uid="uid://hdi0gidae4ne" path="res://assets/table.glb" id="1_3dwjn"]
+[ext_resource type="Material" uid="uid://6g3nsnkmgmom" path="res://assets/new_standard_material_3d.tres" id="2_kvcgd"]
+
+[node name="table" instance=ExtResource("1_3dwjn")]
+
+[node name="Railing curves_001" parent="." index="0"]
+material_override = ExtResource("2_kvcgd")

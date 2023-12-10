@@ -1,0 +1,23 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://6g3nsnkmgmom"]
+
+[ext_resource type="Texture2D" uid="uid://7wounui2rxwy" path="res://assets/hockeytable_base.png" id="1_cxt8b"]
+[ext_resource type="Texture2D" uid="uid://n61ykcph08cc" path="res://assets/hockeytable_emit.png" id="2_k247j"]
+[ext_resource type="Texture2D" uid="uid://gm8jkgl00vus" path="res://assets/hockeytable_metal.jpg" id="3_wkkl2"]
+[ext_resource type="Texture2D" uid="uid://bdo8ypi6uh6fc" path="res://assets/table surface normal.png" id="4_8ldcp"]
+[ext_resource type="Texture2D" uid="uid://bktcx417rjotl" path="res://assets/hockeytable_rough.jpg" id="5_vmd5y"]
+
+[resource]
+albedo_texture = ExtResource("1_cxt8b")
+albedo_texture_force_srgb = true
+metallic = 1.0
+metallic_texture = ExtResource("3_wkkl2")
+metallic_texture_channel = 4
+roughness_texture = ExtResource("5_vmd5y")
+roughness_texture_channel = 4
+emission_enabled = true
+emission_texture = ExtResource("2_k247j")
+normal_enabled = true
+normal_texture = ExtResource("4_8ldcp")
+rim_tint = 0.36
+proximity_fade_distance = 0.0
+distance_fade_max_distance = 5.0

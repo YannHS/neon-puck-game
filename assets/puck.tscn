@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dffmqqdt0pvvr"]
+
+[ext_resource type="PackedScene" uid="uid://bqqvsibgn1n7n" path="res://assets/puck.glb" id="1_xq1ct"]
+[ext_resource type="Material" uid="uid://6g3nsnkmgmom" path="res://assets/new_standard_material_3d.tres" id="2_53q14"]
+
+[node name="Node3D" instance=ExtResource("1_xq1ct")]
+
+[node name="Puck_001" parent="." index="0"]
+transform = Transform3D(0.0148185, 0, 0, 0, 0, -0.00586103, 0, 0.0148185, 0, 0, 0, 0)
+material_override = ExtResource("2_53q14")
