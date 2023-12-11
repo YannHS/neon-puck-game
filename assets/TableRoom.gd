@@ -17,8 +17,10 @@ func ScreenPointToRay(camera, mask):
 		return Vector3(0, 0, 0)
 
 func ClampPusher(Marker1, Marker2, PusherPos):
-	return clamp(PusherPos, Marker1.global_position, Marker2.global_position)
-
+	var output = Vector3.ZERO
+	for x in range(3):
+		output[x] = clamp(PusherPos[x], Marker1.global_position[x], Marker2.global_position[x])
+	return output
 
 var Input_Pos = Vector2.ZERO
 # Called when the node enters the scene tree for the first time.
@@ -33,13 +35,13 @@ func _process(delta):
 	pass
 	
 func _physics_process(delta):
-	$RedPusher.global_position = ScreenPointToRay($"TopCamera", 2)
+	$RedPusher.global_position = ClampPusher($RedBound/MarkerNegative, $RedBound/MarkerPositive, ScreenPointToRay($"3DCamera", 2))
+	$BluePusher.global_position = ClampPusher($BlueBound/MarkerNegative, $BlueBound/MarkerPositive, ScreenPointToRay($"3DCamera", 2))
 	var puck = $TableAsset/Puck
 	puck.global_rotation = Vector3(0, puck.global_rotation.y, 0)
 	puck.global_position = Vector3(puck.global_position.x, 
 	0.524, 
 	puck.global_position.z)
-	print(ClampPusher($RedBound/MarkerNegative, $RedBound/MarkerPositive, $RedPusher.global_position))
 
 
 

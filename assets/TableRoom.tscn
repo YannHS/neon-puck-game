@@ -15,6 +15,7 @@ sky_material = SubResource("PanoramaSkyMaterial_1xbs8")
 
 [sub_resource type="Environment" id="Environment_ft0pa"]
 background_mode = 2
+background_energy_multiplier = 0.84
 sky = SubResource("Sky_fv38l")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
@@ -22,7 +23,11 @@ ambient_light_sky_contribution = 0.23
 ambient_light_energy = 0.0
 tonemap_mode = 2
 ssr_fade_out = 5.65684
+ssao_enabled = true
+glow_enabled = true
 glow_intensity = 8.0
+glow_blend_mode = 1
+glow_hdr_threshold = 0.87
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gicq7"]
 radius = 0.0662535
@@ -130,7 +135,7 @@ visible = false
 shape = SubResource("BoxShape3D_oru0x")
 
 [node name="Puck" type="RigidBody3D" parent="TableAsset"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228641, 0.524086, -0.0866885)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228641, 0.524086, 0.272856)
 physics_material_override = SubResource("PhysicsMaterial_5syyr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TableAsset/Puck"]
@@ -156,24 +161,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.463, 1)
 [node name="FarGoal" type="CollisionShape3D" parent="TableAsset/FarGoalCheck"]
 shape = SubResource("BoxShape3D_iflaw")
 
+[node name="3DCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.669027, 0.743238, 0, -0.743238, 0.669027, 0, 1.85717, 1.39235)
+fov = 33.3
+far = 100.0
+
 [node name="TopCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.826098, 0)
 projection = 1
 size = 1.5
 far = 10.0
 
-[node name="3DCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.669027, 0.743238, 0, -0.743238, 0.669027, 0, 1.85717, 1.39235)
-fov = 33.3
-far = 100.0
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.737733, 0.600621, -0.308229, 0.28177, 0.688849, 0.667902, 0.613479, 0.405883, -0.677424, 0, 0, 0)
 light_color = Color(1, 0.972549, 0.890196, 1)
+light_energy = 0.515
+light_angular_distance = 0.91
 shadow_enabled = true
-shadow_blur = 0.238
 
 [node name="RedBound" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0107747, 0)
 
 [node name="MarkerNegative" type="Marker3D" parent="RedBound"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.303652, 0.526167, 0.0781027)
@@ -184,7 +191,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.526, 0.64)
 gizmo_extents = 0.1
 
 [node name="BlueBound" type="Node3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.0107747, 0)
 
 [node name="MarkerPositive" type="Marker3D" parent="BlueBound"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.303652, 0.526167, 0.0781027)
