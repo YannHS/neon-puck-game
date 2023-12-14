@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://3dcgt4vq1u15"]
+[gd_scene load_steps=22 format=3 uid="uid://3dcgt4vq1u15"]
 
 [ext_resource type="Texture2D" uid="uid://bdkqopxubk5wk" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.exr" id="1_qeuh0"]
 [ext_resource type="Script" path="res://assets/TableRoom.gd" id="1_yah35"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cmedwb4wiswdg" path="res://assets/red_pusher.tscn" id="3_0l84j"]
 [ext_resource type="PackedScene" uid="uid://dffmqqdt0pvvr" path="res://assets/puck.tscn" id="4_5dbh7"]
 [ext_resource type="PackedScene" uid="uid://bgifryudbqyy0" path="res://assets/table.tscn" id="5_axt8n"]
+[ext_resource type="Script" path="res://assets/Puck.gd" id="6_326c3"]
+[ext_resource type="AudioStream" uid="uid://bd3kah0v7bs1p" path="res://assets/PuckCollide.mp3" id="7_n1ym0"]
+[ext_resource type="Script" path="res://assets/RedPusher.gd" id="8_8q7jn"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1xbs8"]
 panorama = ExtResource("1_qeuh0")
@@ -23,15 +26,10 @@ ambient_light_sky_contribution = 0.23
 ambient_light_energy = 0.0
 tonemap_mode = 2
 ssr_fade_out = 5.65684
-ssao_enabled = true
 glow_enabled = true
 glow_intensity = 8.0
 glow_blend_mode = 1
 glow_hdr_threshold = 0.87
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gicq7"]
-radius = 0.0662535
-height = 0.414421
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jb4lc"]
 
@@ -39,14 +37,14 @@ height = 0.414421
 friction = 0.0
 bounce = 0.51
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_e7ly1"]
-size = Vector3(1, 1.11101, 1.9469)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_ox4tf"]
 size = Vector3(0.412937, 1, 2.06777)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oru0x"]
 size = Vector3(0.689382, 1, 0.391366)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e7ly1"]
+size = Vector3(1, 1.11101, 1.9469)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5syyr"]
 
@@ -56,6 +54,10 @@ size = Vector3(0.0810364, 0.0096517, 0.0796044)
 [sub_resource type="BoxShape3D" id="BoxShape3D_iflaw"]
 size = Vector3(0.226433, 1, 0.519339)
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c6h5l"]
+radius = 0.0641514
+height = 0.50022
+
 [node name="TableRoom" type="Node3D"]
 script = ExtResource("1_yah35")
 
@@ -64,16 +66,6 @@ environment = SubResource("Environment_ft0pa")
 
 [node name="BluePusher" parent="." instance=ExtResource("2_roamh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509599, -0.204533)
-
-[node name="RedPusher" parent="." instance=ExtResource("3_0l84j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025972, 0.513727, 0.296587)
-
-[node name="StaticBody3D" type="CharacterBody3D" parent="RedPusher"]
-collision_priority = 2.0
-motion_mode = 1
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RedPusher/StaticBody3D"]
-shape = SubResource("CapsuleShape3D_gicq7")
 
 [node name="TableAsset" parent="." instance=ExtResource("5_axt8n")]
 
@@ -86,57 +78,63 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00271052, 0.50823, 0.003476
 visible = false
 shape = SubResource("WorldBoundaryShape3D_jb4lc")
 
-[node name="PuckCollision" type="StaticBody3D" parent="TableAsset"]
+[node name="PuckWallCollision" type="StaticBody3D" parent="TableAsset"]
 physics_material_override = SubResource("PhysicsMaterial_d0k7o")
 
-[node name="BottomWall" type="CollisionShape3D" parent="TableAsset/PuckCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00542104, -0.0341913, 0.0069527)
-visible = false
-shape = SubResource("BoxShape3D_e7ly1")
-
-[node name="LeftWall" type="CollisionShape3D" parent="TableAsset/PuckCollision"]
+[node name="LeftWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.582427, 0.509037, 0)
 visible = false
 shape = SubResource("BoxShape3D_ox4tf")
 
-[node name="RightWall" type="CollisionShape3D" parent="TableAsset/PuckCollision"]
+[node name="RightWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.573182, 0.509037, 0)
 visible = false
 shape = SubResource("BoxShape3D_ox4tf")
 
-[node name="CloseRightWall" type="CollisionShape3D" parent="TableAsset/PuckCollision"]
+[node name="CloseRightWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.495116, 0.509037, -0.915242)
 visible = false
 shape = SubResource("BoxShape3D_oru0x")
 
-[node name="FarRightWall" type="CollisionShape3D" parent="TableAsset/PuckCollision"]
+[node name="FarRightWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.495116, 0.509037, 0.908737)
 visible = false
 shape = SubResource("BoxShape3D_oru0x")
 
-[node name="CloseCenterWall" type="CollisionShape3D" parent="TableAsset/PuckCollision"]
+[node name="CloseCenterWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509037, -0.998155)
 visible = false
 shape = SubResource("BoxShape3D_oru0x")
 
-[node name="FarCenterWall" type="CollisionShape3D" parent="TableAsset/PuckCollision"]
+[node name="FarCenterWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509, 0.998)
 visible = false
 shape = SubResource("BoxShape3D_oru0x")
 
-[node name="CloseLeftWall" type="CollisionShape3D" parent="TableAsset/PuckCollision"]
+[node name="CloseLeftWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.495, 0.509037, -0.915242)
 visible = false
 shape = SubResource("BoxShape3D_oru0x")
 
-[node name="FarLeftWall" type="CollisionShape3D" parent="TableAsset/PuckCollision"]
+[node name="FarLeftWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.495, 0.509037, 0.908737)
 visible = false
 shape = SubResource("BoxShape3D_oru0x")
 
+[node name="PuckFloorCollision" type="StaticBody3D" parent="TableAsset"]
+physics_material_override = SubResource("PhysicsMaterial_d0k7o")
+
+[node name="BottomWall" type="CollisionShape3D" parent="TableAsset/PuckFloorCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00542104, -0.0341913, 0.0069527)
+visible = false
+shape = SubResource("BoxShape3D_e7ly1")
+
 [node name="Puck" type="RigidBody3D" parent="TableAsset"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228641, 0.524086, 0.272856)
+collision_layer = 5
+collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_5syyr")
+script = ExtResource("6_326c3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TableAsset/Puck"]
 visible = false
@@ -148,6 +146,9 @@ visible = false
 shape = SubResource("BoxShape3D_ebumx")
 
 [node name="PuckAsset" parent="TableAsset/Puck" instance=ExtResource("4_5dbh7")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TableAsset/Puck"]
+stream = ExtResource("7_n1ym0")
 
 [node name="CloseGoalCheck" type="Area3D" parent="TableAsset"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462831, -1)
@@ -201,5 +202,21 @@ gizmo_extents = 0.1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.526, 0.64)
 gizmo_extents = 0.1
 
+[node name="RedPusher" type="RigidBody3D" parent="." node_paths=PackedStringArray("Camera", "Marker1", "Marker2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025972, 0.513727, 0.296587)
+collision_layer = 4
+collision_mask = 4
+mass = 10.0
+script = ExtResource("8_8q7jn")
+Camera = NodePath("../3DCamera")
+Marker1 = NodePath("../RedBound/MarkerNegative")
+Marker2 = NodePath("../RedBound/MarkerPositive")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RedPusher"]
+shape = SubResource("CapsuleShape3D_c6h5l")
+
+[node name="RedPusherModel" parent="RedPusher" instance=ExtResource("3_0l84j")]
+
+[connection signal="body_entered" from="TableAsset/Puck" to="TableAsset/Puck" method="_on_body_entered"]
 [connection signal="body_entered" from="TableAsset/CloseGoalCheck" to="." method="_on_close_goal_entered"]
 [connection signal="body_entered" from="TableAsset/FarGoalCheck" to="." method="_on_far_goal_entered"]

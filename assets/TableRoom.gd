@@ -35,7 +35,6 @@ func _process(delta):
 	pass
 	
 func _physics_process(delta):
-	$RedPusher.global_position = ClampPusher($RedBound/MarkerNegative, $RedBound/MarkerPositive, ScreenPointToRay($"3DCamera", 2))
 	$BluePusher.global_position = ClampPusher($BlueBound/MarkerNegative, $BlueBound/MarkerPositive, ScreenPointToRay($"3DCamera", 2))
 	var puck = $TableAsset/Puck
 	puck.global_rotation = Vector3(0, puck.global_rotation.y, 0)
