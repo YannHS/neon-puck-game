@@ -26,8 +26,8 @@ common/physics_ticks_per_second=120
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
 lights_and_shadows/directional_shadow/size=16000
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=1
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 scaling_3d/mode=1
 scaling_3d/fsr_sharpness=1.2

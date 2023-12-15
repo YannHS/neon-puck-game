@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cxmrbvwxtli4l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndbqi"]
+bg_color = Color(0, 0, 0, 0.423529)
+
+[resource]
+Label/constants/outline_size = 0
+Label/font_sizes/font_size = 32
+Label/styles/normal = SubResource("StyleBoxFlat_ndbqi")

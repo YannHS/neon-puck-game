@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://3dcgt4vq1u15"]
+[gd_scene load_steps=25 format=3 uid="uid://3dcgt4vq1u15"]
 
 [ext_resource type="Texture2D" uid="uid://bdkqopxubk5wk" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.exr" id="1_qeuh0"]
 [ext_resource type="Script" path="res://assets/TableRoom.gd" id="1_yah35"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bgifryudbqyy0" path="res://assets/table.tscn" id="5_axt8n"]
 [ext_resource type="Script" path="res://assets/Puck.gd" id="6_326c3"]
 [ext_resource type="AudioStream" uid="uid://bd3kah0v7bs1p" path="res://assets/PuckCollide.mp3" id="7_n1ym0"]
+[ext_resource type="Theme" uid="uid://cxmrbvwxtli4l" path="res://new_theme.tres" id="8_2twpo"]
 [ext_resource type="Script" path="res://assets/RedPusher.gd" id="8_8q7jn"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1xbs8"]
@@ -24,6 +25,7 @@ ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_sky_contribution = 0.23
 ambient_light_energy = 0.0
+reflected_light_source = 2
 tonemap_mode = 2
 ssr_fade_out = 5.65684
 glow_enabled = true
@@ -51,12 +53,19 @@ size = Vector3(1, 1.11101, 1.9469)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ebumx"]
 size = Vector3(0.0810364, 0.0096517, 0.0796044)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_glyjy"]
+height = 0.007
+radius = 0.0562144
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_iflaw"]
 size = Vector3(0.226433, 1, 0.519339)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c6h5l"]
 radius = 0.0641514
 height = 0.50022
+
+[sub_resource type="LabelSettings" id="LabelSettings_678r6"]
+font_size = 32
 
 [node name="TableRoom" type="Node3D"]
 script = ExtResource("1_yah35")
@@ -140,15 +149,15 @@ script = ExtResource("6_326c3")
 visible = false
 shape = SubResource("BoxShape3D_ebumx")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="TableAsset/Puck"]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="TableAsset/Puck"]
 visible = false
-shape = SubResource("BoxShape3D_ebumx")
+shape = SubResource("CylinderShape3D_glyjy")
 
 [node name="PuckAsset" parent="TableAsset/Puck" instance=ExtResource("4_5dbh7")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TableAsset/Puck"]
 stream = ExtResource("7_n1ym0")
+volume_db = -7.376
 
 [node name="CloseGoalCheck" type="Area3D" parent="TableAsset"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462831, -1)
@@ -188,8 +197,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.303652, 0.526167, 0.078102
 gizmo_extents = 0.1
 
 [node name="MarkerPositive" type="Marker3D" parent="RedBound"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.526, 0.64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.526, 0.65648)
 gizmo_extents = 0.1
+
+[node name="RedStartPos" type="Marker3D" parent="RedBound"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.526, 0.421119)
 
 [node name="BlueBound" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.0107747, 0)
@@ -199,23 +211,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.303652, 0.526167, 0.078102
 gizmo_extents = 0.1
 
 [node name="MarkerNegative" type="Marker3D" parent="BlueBound"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.526, 0.64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.526, 0.656)
 gizmo_extents = 0.1
 
-[node name="RedPusher" type="RigidBody3D" parent="." node_paths=PackedStringArray("Camera", "Marker1", "Marker2")]
+[node name="BlueStartPos" type="Marker3D" parent="BlueBound"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.526, 0.421)
+
+[node name="RedPusher" type="RigidBody3D" parent="." node_paths=PackedStringArray("Camera", "Marker1", "Marker2", "StartMarker")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025972, 0.513727, 0.296587)
 collision_layer = 4
 collision_mask = 4
-mass = 10.0
+mass = 0.2
 script = ExtResource("8_8q7jn")
 Camera = NodePath("../3DCamera")
 Marker1 = NodePath("../RedBound/MarkerNegative")
 Marker2 = NodePath("../RedBound/MarkerPositive")
+StartMarker = NodePath("../RedBound/RedStartPos")
+ResponseTime = 50
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RedPusher"]
 shape = SubResource("CapsuleShape3D_c6h5l")
 
 [node name="RedPusherModel" parent="RedPusher" instance=ExtResource("3_0l84j")]
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -206.0
+offset_right = 206.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme = ExtResource("8_2twpo")
+text = " 7 - 1"
+label_settings = SubResource("LabelSettings_678r6")
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="TableAsset/Puck" to="TableAsset/Puck" method="_on_body_entered"]
 [connection signal="body_entered" from="TableAsset/CloseGoalCheck" to="." method="_on_close_goal_entered"]
