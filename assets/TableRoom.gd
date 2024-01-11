@@ -1,5 +1,8 @@
 extends Node3D
 
+var RedScore = 0
+var BlueScore = 0
+
 func ScreenPointToRay(camera, mask):
 	var spaceState = get_world_3d().direct_space_state
 	var mousePos = get_viewport().get_mouse_position()
@@ -24,9 +27,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-	#Vector3(deg_to_rad(fov) * Input_Pos.y, deg_to_rad(fov) * Input_Pos.x, 0)
-	pass
+	$Label.text = str(RedScore) + " - " + str(BlueScore)
 	
 func _physics_process(delta):
 	var puck = $TableAsset/Puck
@@ -35,13 +36,21 @@ func _physics_process(delta):
 	0.524, 
 	puck.global_position.z)
 
+func _input(event):
+	if event is InputEventKey:
+		if event.is_action("fullscreen"):
+			if get_window().get_mode() != Window.Mode.MODE_FULLSCREEN:
+				get_window().set_mode(Window.Mode.MODE_EXCLUSIVE_FULLSCREEN)
+			else:
+				get_window().set_mode(Window.Mode.MODE_MAXIMIZED)
+
 
 
 func _on_close_goal_entered(body):
 	if body == $TableAsset/Puck:
-		print("red win")
+		RedScore += 1
 
 
 func _on_far_goal_entered(body):
 	if body == $TableAsset/Puck:
-		print("blue win")
+		BlueScore += 1

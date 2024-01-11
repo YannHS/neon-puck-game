@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://3dcgt4vq1u15"]
+[gd_scene load_steps=26 format=3 uid="uid://3dcgt4vq1u15"]
 
 [ext_resource type="Texture2D" uid="uid://bdkqopxubk5wk" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.exr" id="1_qeuh0"]
 [ext_resource type="Script" path="res://assets/TableRoom.gd" id="1_yah35"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://bd3kah0v7bs1p" path="res://assets/PuckCollide.mp3" id="7_n1ym0"]
 [ext_resource type="Theme" uid="uid://cxmrbvwxtli4l" path="res://new_theme.tres" id="8_2twpo"]
 [ext_resource type="Script" path="res://assets/RedPusher.gd" id="8_8q7jn"]
+[ext_resource type="PackedScene" uid="uid://c0cyt3bun5ocy" path="res://assets/cabinet.glb" id="11_1g461"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1xbs8"]
 panorama = ExtResource("1_qeuh0")
@@ -28,6 +29,9 @@ ambient_light_energy = 0.0
 reflected_light_source = 2
 tonemap_mode = 2
 ssr_fade_out = 5.65684
+ssao_radius = 0.11
+ssao_intensity = 16.0
+ssao_detail = 5.0
 glow_enabled = true
 glow_intensity = 8.0
 glow_blend_mode = 1
@@ -72,9 +76,6 @@ script = ExtResource("1_yah35")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ft0pa")
-
-[node name="BluePusher" parent="." instance=ExtResource("2_roamh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509599, -0.204533)
 
 [node name="TableAsset" parent="." instance=ExtResource("5_axt8n")]
 
@@ -234,6 +235,24 @@ shape = SubResource("CapsuleShape3D_c6h5l")
 
 [node name="RedPusherModel" parent="RedPusher" instance=ExtResource("3_0l84j")]
 
+[node name="BluePusher" type="RigidBody3D" parent="." node_paths=PackedStringArray("Camera", "Marker1", "Marker2", "StartMarker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026, 0.514, -0.297)
+collision_layer = 4
+collision_mask = 4
+mass = 0.2
+script = ExtResource("8_8q7jn")
+Camera = NodePath("../3DCamera")
+Marker1 = NodePath("../BlueBound/MarkerNegative")
+Marker2 = NodePath("../BlueBound/MarkerPositive")
+StartMarker = NodePath("../BlueBound/BlueStartPos")
+ResponseTime = 50
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BluePusher"]
+shape = SubResource("CapsuleShape3D_c6h5l")
+
+[node name="BluePusherModel" parent="BluePusher" instance=ExtResource("2_roamh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026, -0.004, 0)
+
 [node name="Label" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
@@ -243,9 +262,47 @@ offset_right = 206.0
 offset_bottom = 45.0
 grow_horizontal = 2
 theme = ExtResource("8_2twpo")
-text = " 7 - 1"
 label_settings = SubResource("LabelSettings_678r6")
 horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.5
+offset_top = -289.0
+offset_right = 197.5
+offset_bottom = 289.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Continue"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button3" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button4" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="cabinet" parent="." instance=ExtResource("11_1g461")]
+transform = Transform3D(0.263974, 0, 0.96453, 0, 1, 0, -0.96453, 0, 0.263974, -1.18733, 0, -0.37792)
 
 [connection signal="body_entered" from="TableAsset/Puck" to="TableAsset/Puck" method="_on_body_entered"]
 [connection signal="body_entered" from="TableAsset/CloseGoalCheck" to="." method="_on_close_goal_entered"]
