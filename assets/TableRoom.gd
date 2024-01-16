@@ -2,6 +2,11 @@ extends Node3D
 
 var RedScore = 0
 var BlueScore = 0
+var Fullscreen = false
+var GameState = 0
+# game state 0 is main menu
+#game state 1 is gameplay
+#game state 2 is paused menu
 
 func ScreenPointToRay(camera, mask):
 	var spaceState = get_world_3d().direct_space_state
@@ -28,6 +33,22 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Label.text = str(RedScore) + " - " + str(BlueScore)
+	if GameState == 0:
+		# We should display some home menu
+		pass
+	if GameState == 1:
+		# There should be gameplay
+		$VBoxContainer.set_visible(false)
+		$VBoxContainer/Continue.set_visible(false)
+		$VBoxContainer/Exit.set_visible(false)
+		$Label.set_visible(true)
+	if GameState == 2:
+		# pause menu
+		$VBoxContainer.set_visible(true)
+		$VBoxContainer/Continue.set_visible(true)
+		$VBoxContainer/Exit.set_visible(true)
+		$Label.set_visible(true)
+		
 	
 func _physics_process(delta):
 	var puck = $TableAsset/Puck
@@ -38,11 +59,17 @@ func _physics_process(delta):
 
 func _input(event):
 	if event is InputEventKey:
-		if event.is_action("fullscreen"):
-			if get_window().get_mode() != Window.Mode.MODE_FULLSCREEN:
+		if event.is_action_released("fullscreen"):
+			if Fullscreen == false:
 				get_window().set_mode(Window.Mode.MODE_EXCLUSIVE_FULLSCREEN)
+				Fullscreen = true
 			else:
-				get_window().set_mode(Window.Mode.MODE_MAXIMIZED)
+				get_window().set_mode(Window.Mode.MODE_WINDOWED)
+				Fullscreen = false
+		if event.is_action_released("ui_cancel"):
+			if GameState == 1:
+				GameState = 2
+			
 
 
 
@@ -54,3 +81,12 @@ func _on_close_goal_entered(body):
 func _on_far_goal_entered(body):
 	if body == $TableAsset/Puck:
 		BlueScore += 1
+
+
+
+func _paused_continue_pressed():
+	GameState = 1
+
+
+func _paused_exit_pressed():
+	GameState = 0
