@@ -246,6 +246,8 @@ Marker1 = NodePath("../BlueBound/MarkerNegative")
 Marker2 = NodePath("../BlueBound/MarkerPositive")
 StartMarker = NodePath("../BlueBound/BlueStartPos")
 ResponseTime = 50
+IsAuto = true
+AutoReactionDistance = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BluePusher"]
 shape = SubResource("CapsuleShape3D_c6h5l")
@@ -265,7 +267,7 @@ theme = ExtResource("8_2twpo")
 label_settings = SubResource("LabelSettings_678r6")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="PauseMenu" type="VBoxContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -280,14 +282,41 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Continue" type="Button" parent="VBoxContainer"]
+[node name="Continue" type="Button" parent="PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Continue"
 
-[node name="Exit" type="Button" parent="VBoxContainer"]
+[node name="Exit" type="Button" parent="PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+text = "Menu"
+
+[node name="HomeMenu" type="VBoxContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.5
+offset_top = -166.5
+offset_right = 197.5
+offset_bottom = 166.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Continue" type="Button" parent="HomeMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Continue"
+
+[node name="Exit" type="Button" parent="HomeMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Menu"
 
 [node name="cabinet" parent="." instance=ExtResource("11_1g461")]
 transform = Transform3D(0.263974, 0, 0.96453, 0, 1, 0, -0.96453, 0, 0.263974, -1.18733, 0, -0.37792)
@@ -295,5 +324,7 @@ transform = Transform3D(0.263974, 0, 0.96453, 0, 1, 0, -0.96453, 0, 0.263974, -1
 [connection signal="body_entered" from="TableAsset/Puck" to="TableAsset/Puck" method="_on_body_entered"]
 [connection signal="body_entered" from="TableAsset/CloseGoalCheck" to="." method="_on_close_goal_entered"]
 [connection signal="body_entered" from="TableAsset/FarGoalCheck" to="." method="_on_far_goal_entered"]
-[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_paused_continue_pressed"]
-[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_paused_exit_pressed"]
+[connection signal="pressed" from="PauseMenu/Continue" to="." method="_paused_continue_pressed"]
+[connection signal="pressed" from="PauseMenu/Exit" to="." method="_paused_exit_pressed"]
+[connection signal="pressed" from="HomeMenu/Continue" to="." method="_paused_continue_pressed"]
+[connection signal="pressed" from="HomeMenu/Exit" to="." method="_paused_exit_pressed"]

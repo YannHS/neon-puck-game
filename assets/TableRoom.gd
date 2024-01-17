@@ -38,16 +38,18 @@ func _process(delta):
 		pass
 	if GameState == 1:
 		# There should be gameplay
-		$VBoxContainer.set_visible(false)
-		$VBoxContainer/Continue.set_visible(false)
-		$VBoxContainer/Exit.set_visible(false)
+		$PauseMenu.set_visible(false)
+		$PauseMenu/Continue.set_visible(false)
+		$PauseMenu/Exit.set_visible(false)
 		$Label.set_visible(true)
+		Engine.time_scale = 1
 	if GameState == 2:
 		# pause menu
-		$VBoxContainer.set_visible(true)
-		$VBoxContainer/Continue.set_visible(true)
-		$VBoxContainer/Exit.set_visible(true)
+		$PauseMenu.set_visible(true)
+		$PauseMenu/Continue.set_visible(true)
+		$PauseMenu/Exit.set_visible(true)
 		$Label.set_visible(true)
+		Engine.time_scale = 0
 		
 	
 func _physics_process(delta):

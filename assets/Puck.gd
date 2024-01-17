@@ -14,13 +14,14 @@ func _process(delta):
 
 func _on_body_entered(body):
 	var sound = $AudioStreamPlayer
-	if body == $"../../RedPusher":
+	if body == $"../../RedPusher" or body == $"../../BluePusher":
+		# plays if touching a pusher since we want a higher pitch
 		sound.pitch_scale = 0.75
 		sound.volume_db = log(Vector3(linear_velocity - body.linear_velocity).length_squared()) * 5
 		sound.play()
 	else:
+		# plays if touching anything else since we want a lower pitch
 		sound.pitch_scale = 0.5
 		sound.volume_db = log(Vector3(linear_velocity).length_squared()) * 5
 		sound.play()
-	print(sound.volume_db)
 	
