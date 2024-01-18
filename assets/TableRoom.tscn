@@ -218,6 +218,9 @@ gizmo_extents = 0.1
 [node name="BlueStartPos" type="Marker3D" parent="BlueBound"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.526, 0.421)
 
+[node name="AutoRest" type="Marker3D" parent="BlueBound"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.50495e-08, 0, 0.515306)
+
 [node name="RedPusher" type="RigidBody3D" parent="." node_paths=PackedStringArray("Camera", "Marker1", "Marker2", "StartMarker")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025972, 0.513727, 0.296587)
 collision_layer = 4
@@ -235,7 +238,7 @@ shape = SubResource("CapsuleShape3D_c6h5l")
 
 [node name="RedPusherModel" parent="RedPusher" instance=ExtResource("3_0l84j")]
 
-[node name="BluePusher" type="RigidBody3D" parent="." node_paths=PackedStringArray("Camera", "Marker1", "Marker2", "StartMarker")]
+[node name="BluePusher" type="RigidBody3D" parent="." node_paths=PackedStringArray("Camera", "Marker1", "Marker2", "StartMarker", "AutoRestPos", "AutoEnemy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026, 0.514, -0.297)
 collision_layer = 4
 collision_mask = 4
@@ -247,13 +250,17 @@ Marker2 = NodePath("../BlueBound/MarkerPositive")
 StartMarker = NodePath("../BlueBound/BlueStartPos")
 ResponseTime = 50
 IsAuto = true
-AutoReactionDistance = 1.0
+AutoRestPos = NodePath("../BlueBound/AutoRest")
+AutoReactionDistance = 0.3
+AutoEnemy = NodePath("../TableAsset/Puck")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BluePusher"]
 shape = SubResource("CapsuleShape3D_c6h5l")
 
 [node name="BluePusherModel" parent="BluePusher" instance=ExtResource("2_roamh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026, -0.004, 0)
+
+[node name="Timer" type="Timer" parent="BluePusher"]
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 5
