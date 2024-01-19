@@ -32,7 +32,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Label.text = str(RedScore) + " - " + str(BlueScore)
+	$Score.text = str(RedScore) + " - " + str(BlueScore)
 	if GameState == 0:
 		# We should display some home menu
 		pass
@@ -41,14 +41,14 @@ func _process(delta):
 		$PauseMenu.set_visible(false)
 		$PauseMenu/Continue.set_visible(false)
 		$PauseMenu/Exit.set_visible(false)
-		$Label.set_visible(true)
+		$Score.set_visible(true)
 		Engine.time_scale = 1
 	if GameState == 2:
 		# pause menu
 		$PauseMenu.set_visible(true)
 		$PauseMenu/Continue.set_visible(true)
 		$PauseMenu/Exit.set_visible(true)
-		$Label.set_visible(true)
+		$Score.set_visible(true)
 		Engine.time_scale = 0
 		
 	
@@ -77,14 +77,30 @@ func _input(event):
 
 func _on_close_goal_entered(body):
 	if body == $TableAsset/Puck:
-		RedScore += 1
+		# Call our goal logic
+		GoalScored(0)
 
 
 func _on_far_goal_entered(body):
 	if body == $TableAsset/Puck:
-		BlueScore += 1
+		# Call our goal logic
+		GoalScored(1)
 
 
+func GoalScored(Victor):
+	# Victor is 0 for close (Red Scored) or 1 for far (Blue Scored)
+		var VictorName = ""
+		if Victor == 0:
+			RedScore += 1
+			VictorName = "Red"
+		elif Victor == 1:
+			BlueScore += 1
+			VictorName = "Blue"
+		$CentreText.text = VictorName + " Wins!"
+		$CentreText.visible = true
+		# wait 2 seconds
+		await get_tree().create_timer(2).timeout
+		$CentreText.visible = false 
 
 func _paused_continue_pressed():
 	GameState = 1

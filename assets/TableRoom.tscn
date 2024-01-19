@@ -219,7 +219,7 @@ gizmo_extents = 0.1
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.526, 0.421)
 
 [node name="AutoRest" type="Marker3D" parent="BlueBound"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.50495e-08, 0, 0.515306)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.44282e-08, 0.536708, 0.851359)
 
 [node name="RedPusher" type="RigidBody3D" parent="." node_paths=PackedStringArray("Camera", "Marker1", "Marker2", "StartMarker")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025972, 0.513727, 0.296587)
@@ -251,7 +251,7 @@ StartMarker = NodePath("../BlueBound/BlueStartPos")
 ResponseTime = 50
 IsAuto = true
 AutoRestPos = NodePath("../BlueBound/AutoRest")
-AutoReactionDistance = 0.3
+AutoReactionDistance = 0.9
 AutoEnemy = NodePath("../TableAsset/Puck")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BluePusher"]
@@ -260,9 +260,7 @@ shape = SubResource("CapsuleShape3D_c6h5l")
 [node name="BluePusherModel" parent="BluePusher" instance=ExtResource("2_roamh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026, -0.004, 0)
 
-[node name="Timer" type="Timer" parent="BluePusher"]
-
-[node name="Label" type="Label" parent="."]
+[node name="Score" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -273,6 +271,26 @@ grow_horizontal = 2
 theme = ExtResource("8_2twpo")
 label_settings = SubResource("LabelSettings_678r6")
 horizontal_alignment = 1
+
+[node name="CentreText" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -241.5
+offset_top = -114.0
+offset_right = 241.5
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("8_2twpo")
+text = "Asmogmogus"
+label_settings = SubResource("LabelSettings_678r6")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PauseMenu" type="VBoxContainer" parent="."]
 anchors_preset = 8

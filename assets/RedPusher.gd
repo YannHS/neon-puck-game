@@ -8,21 +8,31 @@ extends RigidBody3D
 @export var IsAuto: bool
 @export var AutoRestPos: Marker3D
 @export var AutoReactionDistance: float
+@export var AutoReactionDelay: float
 @export var AutoEnemy: Node3D
 
 var TargetPos = Vector3.ZERO
 var AutoIsEngaged = false
 var LerpTimer = Timer.new()
+var PostLerpTimer = Timer.new()
 var EnemyLocation = Vector3.ZERO
 
 func _LerpTimer_Timeout():
-	print("Amogus")
+	PostLerpTimer.start(0.2)
+
+func _PostLerpTimer_Timeout():
+	AutoIsEngaged = false
 
 func _ready():
 	TargetPos = StartMarker.global_position
-	#LerpTimer.set_one_shot(true)
-	#LerpTimer.paused = false #Timer should stop after done
-	#LerpTimer.timeout.connect(_LerpTimer_Timeout)
+	self.add_child(LerpTimer)
+	self.add_child(PostLerpTimer)
+	LerpTimer.one_shot = true
+	LerpTimer.paused = false #Timer should stop after done
+	PostLerpTimer.one_shot = true
+	PostLerpTimer.paused = false #Timer should stop after done
+	LerpTimer.timeout.connect(_LerpTimer_Timeout)
+	PostLerpTimer.timeout.connect(_PostLerpTimer_Timeout)
 
 # Keeps the player controlled pusher within a set boundary
 func ClampPusher(Marker1, Marker2, PusherPos):
@@ -32,24 +42,23 @@ func ClampPusher(Marker1, Marker2, PusherPos):
 	return output
 
 func _physics_process(delta):
-	print(LerpTimer.wait_time)
 	if IsAuto == false:
 		TargetPos = $"..".ScreenPointToRay(Camera, 2)
 	else:
 		if AutoIsEngaged == true:
 			# Push the puck away
-			TargetPos = lerp(EnemyLocation, AutoRestPos.global_position, LerpTimer.time_left / LerpTimer.get_wait_time())
+			TargetPos = lerp(EnemyLocation, AutoRestPos.global_position, 
+			LerpTimer.time_left / LerpTimer.get_wait_time())
 
 		else:
 			# if the autopilot is not engaged and puck is in distance, engage
-			var distance = ($"../TableAsset/Puck".global_position - global_position).length()
+			var distance = ($"../TableAsset/Puck".global_position - 
+			$"../BlueBound/AutoRest".global_position).length()
 			if AutoIsEngaged == false and distance <= AutoReactionDistance:
 				# engage the autopilot
 				AutoIsEngaged = true
 				EnemyLocation = AutoEnemy.position
-				LerpTimer.start() #length of 1 seconds
-				print("asmogogus")
-
+				LerpTimer.start(0.2) #length of 1 seconds
 			# Stay in place since the puck is not around
 			TargetPos = AutoRestPos.global_position
 		
