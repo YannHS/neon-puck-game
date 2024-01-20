@@ -139,12 +139,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00542104, -0.0341913, 0.006
 visible = false
 shape = SubResource("BoxShape3D_e7ly1")
 
-[node name="Puck" type="RigidBody3D" parent="TableAsset"]
+[node name="Puck" type="RigidBody3D" parent="TableAsset" node_paths=PackedStringArray("StartMarkerBlue", "StartMarkerRed")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228641, 0.524086, 0.272856)
 collision_layer = 5
 collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_5syyr")
 script = ExtResource("6_326c3")
+StartMarkerBlue = NodePath("../../PuckStartBlue")
+StartMarkerRed = NodePath("../../PuckStartRed")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TableAsset/Puck"]
 visible = false
@@ -248,7 +250,7 @@ Camera = NodePath("../3DCamera")
 Marker1 = NodePath("../BlueBound/MarkerNegative")
 Marker2 = NodePath("../BlueBound/MarkerPositive")
 StartMarker = NodePath("../BlueBound/BlueStartPos")
-ResponseTime = 50
+ResponseTime = 51
 IsAuto = true
 AutoRestPos = NodePath("../BlueBound/AutoRest")
 AutoReactionDistance = 0.9
@@ -345,6 +347,12 @@ text = "Menu"
 
 [node name="cabinet" parent="." instance=ExtResource("11_1g461")]
 transform = Transform3D(0.263974, 0, 0.96453, 0, 1, 0, -0.96453, 0, 0.263974, -1.18733, 0, -0.37792)
+
+[node name="PuckStartBlue" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.528, -0.179)
+
+[node name="PuckStartRed" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.513343, 0.179018)
 
 [connection signal="body_entered" from="TableAsset/Puck" to="TableAsset/Puck" method="_on_body_entered"]
 [connection signal="body_entered" from="TableAsset/CloseGoalCheck" to="." method="_on_close_goal_entered"]

@@ -89,18 +89,27 @@ func _on_far_goal_entered(body):
 
 func GoalScored(Victor):
 	# Victor is 0 for close (Red Scored) or 1 for far (Blue Scored)
-		var VictorName = ""
-		if Victor == 0:
-			RedScore += 1
-			VictorName = "Red"
-		elif Victor == 1:
-			BlueScore += 1
-			VictorName = "Blue"
-		$CentreText.text = VictorName + " Wins!"
-		$CentreText.visible = true
-		# wait 2 seconds
-		await get_tree().create_timer(2).timeout
-		$CentreText.visible = false 
+	var VictorName = ""
+	if Victor == 0:
+		RedScore += 1
+		VictorName = "Red"
+		$TableAsset/Puck.reset(0)
+	elif Victor == 1:
+		BlueScore += 1
+		VictorName = "Blue"
+		$TableAsset/Puck.reset(1)
+		
+	$TableAsset/Puck.linear_velocity = Vector3.ZERO
+	$TableAsset/Puck.angular_velocity = Vector3.ZERO
+	$CentreText.text = VictorName + " Scored!"
+	$CentreText.visible = true
+	$RedPusher.IsResting = true
+	$BluePusher.IsResting = true
+	# wait 2 seconds
+	await get_tree().create_timer(2).timeout
+	$CentreText.visible = false
+	$RedPusher.IsResting = false
+	$BluePusher.IsResting = false
 
 func _paused_continue_pressed():
 	GameState = 1

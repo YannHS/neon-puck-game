@@ -1,5 +1,7 @@
 extends RigidBody3D
 
+@export var StartMarkerBlue: Marker3D
+@export var StartMarkerRed: Marker3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,3 +27,9 @@ func _on_body_entered(body):
 		sound.volume_db = log(Vector3(linear_velocity).length_squared()) * 5
 		sound.play()
 	
+func reset(placement):
+	# 0 is blue, 1 is red
+	if placement == 0:
+		position = StartMarkerBlue.position
+	elif placement == 1:
+		position = StartMarkerRed.position

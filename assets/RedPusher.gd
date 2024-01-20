@@ -16,6 +16,7 @@ var AutoIsEngaged = false
 var LerpTimer = Timer.new()
 var PostLerpTimer = Timer.new()
 var EnemyLocation = Vector3.ZERO
+var IsResting = false
 
 func _LerpTimer_Timeout():
 	PostLerpTimer.start(0.2)
@@ -42,7 +43,9 @@ func ClampPusher(Marker1, Marker2, PusherPos):
 	return output
 
 func _physics_process(delta):
-	if IsAuto == false:
+	if IsResting == true:
+		TargetPos = StartMarker.global_position
+	elif IsAuto == false:
 		TargetPos = $"..".ScreenPointToRay(Camera, 2)
 	else:
 		if AutoIsEngaged == true:
@@ -67,3 +70,5 @@ func _physics_process(delta):
 	rotation = Vector3.UP
 	global_position.y = Marker1.global_position.y
 
+func reset():
+	position = StartMarker.position
