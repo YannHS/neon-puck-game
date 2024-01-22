@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://dkuc4fec6qne3"]
+
+[ext_resource type="Texture2D" uid="uid://7wounui2rxwy" path="res://Assets/table/hockeytable_base.png" id="1_2t56x"]
+[ext_resource type="Texture2D" uid="uid://n61ykcph08cc" path="res://Assets/table/hockeytable_emit.png" id="2_vopgx"]
+[ext_resource type="Texture2D" uid="uid://gm8jkgl00vus" path="res://Assets/table/hockeytable_metal.jpg" id="3_2uu0v"]
+[ext_resource type="Texture2D" uid="uid://bktcx417rjotl" path="res://Assets/table/hockeytable_rough.jpg" id="4_m5fbo"]
+[ext_resource type="ArrayMesh" uid="uid://dtw6pwajl2uhl" path="res://Assets/table/new_array_mesh.tres" id="5_dfopw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8hds"]
+albedo_texture = ExtResource("1_2t56x")
+albedo_texture_force_srgb = true
+metallic = 1.0
+metallic_texture = ExtResource("3_2uu0v")
+roughness_texture = ExtResource("4_m5fbo")
+roughness_texture_channel = 4
+emission_enabled = true
+emission_texture = ExtResource("2_vopgx")
+
+[sub_resource type="Animation" id="Animation_3tcio"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Railing curves_001:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m0frx"]
+resource_name = "Rotate_Camera"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Railing curves_001:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0), Vector3(0, 4.71239, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fbith"]
+_data = {
+"RESET": SubResource("Animation_3tcio"),
+"Rotate_Camera": SubResource("Animation_m0frx")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Railing curves_001" type="MeshInstance3D" parent="."]
+layers = 524289
+material_override = SubResource("StandardMaterial3D_n8hds")
+mesh = ExtResource("5_dfopw")
+skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.669131, 0.250511, -0.699649, 0, 0.941471, 0.337095, 0.743145, -0.225561, 0.629967, -1.41927, 0.668929, 1.37492)
+fov = 45.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fbith")
+}
+autoplay = "Rotate_Camera"
+speed_scale = 0.5
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.995861, -0.0247353, -0.0874619, 0.0874619, 0.522652, 0.848048, 0.0247353, -0.852187, 0.522652, 0, 0, 0)

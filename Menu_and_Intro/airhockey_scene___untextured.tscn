@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://bqrff5o38tbb"]
+
+[ext_resource type="PackedScene" uid="uid://tehmj7y3drro" path="res://Assets/airhockey_scene - Untextured.glb" id="1_hcwtj"]
+[ext_resource type="Texture2D" uid="uid://c7horlgx77fdc" path="res://Assets/White_wall_col.png" id="3_cspmm"]
+[ext_resource type="Texture2D" uid="uid://cue1gfvl3tttc" path="res://Assets/PlasterPlain001_NRM_1K_METALNESS.png" id="4_cfhs1"]
+[ext_resource type="Texture2D" uid="uid://c7yhiovnnp46p" path="res://Assets/Brickwall_col.png" id="5_0bubt"]
+[ext_resource type="Texture2D" uid="uid://cm1becmqo253g" path="res://Assets/Brickwall_normal.png" id="6_2ne44"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uh2df"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8dyc"]
+albedo_texture = ExtResource("3_cspmm")
+normal_enabled = true
+normal_scale = -0.28
+normal_texture = ExtResource("4_cfhs1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dubb"]
+albedo_texture = ExtResource("5_0bubt")
+normal_enabled = true
+normal_texture = ExtResource("6_2ne44")
+
+[node name="airhockey_scene - Untextured" instance=ExtResource("1_hcwtj")]
+
+[node name="airhockey_floor_stage1" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_uh2df")
+
+[node name="Wall001" parent="." index="2"]
+material_override = SubResource("StandardMaterial3D_b8dyc")
+
+[node name="Wall002" parent="." index="3"]
+transform = Transform3D(-0.934911, 0, -8.74228e-08, 0, 1, 0, 8.17325e-08, 0, -1, 148.875, 0.767369, -311.548)
+material_override = SubResource("StandardMaterial3D_2dubb")
+
+[node name="Wall002_001" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.337723)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="48"]
+transform = Transform3D(0.202555, 0.781627, 0.589942, 0.902344, -0.383022, 0.197657, 0.380455, 0.492294, -0.782879, 0, 0, 0)

@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3 uid="uid://cr7e65yk0th0f"]
+
+[ext_resource type="Texture2D" uid="uid://dnvpgb751lu5c" path="res://carl-raw-m3hn2Kn5Bns-unsplash (1).jpg" id="1_2eb1o"]
+[ext_resource type="Script" path="res://menubackground.gd" id="1_tts0q"]
+[ext_resource type="PackedScene" uid="uid://dkuc4fec6qne3" path="res://Menu.tscn" id="2_gjd1q"]
+[ext_resource type="FontFile" uid="uid://c1n52hxpxkc8o" path="res://Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Bold.ttf" id="3_k7sqo"]
+[ext_resource type="FontFile" uid="uid://b746mwekapyw" path="res://Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/linux-libertine/LinLibertine_5.3.0_2012_07_02/LinLibertineOTF_5.3.0_2012_07_02/LinLibertine_DR.otf" id="4_my3uv"]
+[ext_resource type="AudioStream" uid="uid://dtpp18e64ftco" path="res://Assets/1月19日(1).MP3" id="6_aqpu7"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tts0q")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.796078)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2eb1o")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+modulate = Color(1, 1, 1, 0.964706)
+layout_mode = 0
+offset_left = 384.0
+offset_top = 475.0
+offset_right = 2304.0
+offset_bottom = 1555.0
+scale = Vector2(0.6, 0.6)
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Node3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_gjd1q")]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -288.5
+offset_top = 71.0
+offset_right = 288.5
+offset_bottom = 294.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.815686, 0.756863, 0.698039, 1)
+theme_override_fonts/normal_font = ExtResource("3_k7sqo")
+theme_override_font_sizes/normal_font_size = 185
+bbcode_enabled = true
+text = "[wave amp = 100.0]Menu[/wave]"
+fit_content = true
+scroll_active = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.431373)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 615.0
+offset_right = 250.0
+offset_bottom = 745.0
+grow_horizontal = 2
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+self_modulate = Color(0.631373, 0.756863, 0.752941, 0.835294)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 380.0
+offset_right = 250.0
+offset_bottom = 510.0
+grow_horizontal = 2
+
+[node name="exit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -248.0
+offset_top = 583.0
+offset_right = 252.0
+offset_bottom = 763.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_my3uv")
+theme_override_font_sizes/font_size = 150
+text = "Exit"
+flat = true
+
+[node name="start" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -248.0
+offset_top = 350.0
+offset_right = 249.0
+offset_bottom = 530.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_my3uv")
+theme_override_font_sizes/font_size = 150
+text = "Start"
+flat = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_aqpu7")
+autoplay = true
+
+[connection signal="mouse_entered" from="exit" to="." method="_on_exit_mouse_entered"]
+[connection signal="mouse_exited" from="exit" to="." method="_on_exit_mouse_exited"]
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
+[connection signal="mouse_entered" from="start" to="." method="_on_start_mouse_entered"]
+[connection signal="mouse_exited" from="start" to="." method="_on_start_mouse_exited"]

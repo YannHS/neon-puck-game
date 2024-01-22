@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://cyv5qgnrshf5r"]
+
+[ext_resource type="Texture2D" uid="uid://7wounui2rxwy" path="res://Assets/table/hockeytable_base.png" id="2_d45or"]
+[ext_resource type="Texture2D" uid="uid://n61ykcph08cc" path="res://Assets/table/hockeytable_emit.png" id="3_ymiws"]
+[ext_resource type="Texture2D" uid="uid://gm8jkgl00vus" path="res://Assets/table/hockeytable_metal.jpg" id="4_12unb"]
+[ext_resource type="Texture2D" uid="uid://bktcx417rjotl" path="res://Assets/table/hockeytable_rough.jpg" id="5_j15jy"]
+[ext_resource type="ArrayMesh" uid="uid://dtw6pwajl2uhl" path="res://Assets/table/new_array_mesh.tres" id="6_h84na"]
+[ext_resource type="Shader" path="res://newshader.gdshader" id="6_w6r3a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjfpl"]
+albedo_texture = ExtResource("2_d45or")
+albedo_texture_force_srgb = true
+metallic = 1.0
+metallic_texture = ExtResource("4_12unb")
+roughness_texture = ExtResource("5_j15jy")
+roughness_texture_channel = 4
+emission_enabled = true
+emission_texture = ExtResource("3_ymiws")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uhchr"]
+shader = ExtResource("6_w6r3a")
+shader_parameter/width = 1.5
+shader_parameter/color = Color(0.878431, 0.898039, 0.815686, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Railing curves_001" type="MeshInstance3D" parent="."]
+layers = 524289
+material_override = SubResource("StandardMaterial3D_pjfpl")
+mesh = ExtResource("6_h84na")
+skeleton = NodePath("")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_uhchr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+debug_draw = 1
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="outline_camera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+visible = false
+cull_mask = 524288
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.96363, 0.267238, 0, -0.267238, 0.96363, 0, 0, 0)
+light_energy = 2.53

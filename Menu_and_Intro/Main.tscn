@@ -1,0 +1,53 @@
+[gd_scene load_steps=11 format=3 uid="uid://cr6msb0dexltx"]
+
+[ext_resource type="Script" path="res://Main.gd" id="2_aa5h5"]
+[ext_resource type="Texture2D" uid="uid://wlfbdfm8h7cf" path="res://Assets/kloofendal_48d_partly_cloudy_puresky_2k.exr" id="2_co2sf"]
+[ext_resource type="PackedScene" uid="uid://cxd8aqt0n7h8" path="res://controls.tscn" id="4_5d3dx"]
+[ext_resource type="PackedScene" uid="uid://cyv5qgnrshf5r" path="res://Table.tscn" id="4_lyupv"]
+[ext_resource type="Script" path="res://table.gd" id="5_0er2v"]
+[ext_resource type="PackedScene" uid="uid://bqrff5o38tbb" path="res://airhockey_scene___untextured.tscn" id="5_ihbuq"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4xebo"]
+panorama = ExtResource("2_co2sf")
+
+[sub_resource type="Sky" id="Sky_k7jga"]
+sky_material = SubResource("PanoramaSkyMaterial_4xebo")
+
+[sub_resource type="Environment" id="Environment_blit1"]
+background_mode = 2
+background_energy_multiplier = 0.41
+sky = SubResource("Sky_k7jga")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j55t8"]
+size = Vector3(16.9812, 11.2695, 24.2873)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_blit1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.397911, 0.547677, -0.736014, 0.809017, -0.587785, 1.79971e-07, -0.432618, -0.595448, -0.676966, 0, 38.5175, -57.1439)
+light_energy = 0.59
+
+[node name="Main_cam" type="Camera3D" parent="."]
+transform = Transform3D(0.657375, 0.0525659, -0.751728, 0, 0.997564, 0.0697565, 0.753563, -0.0458562, 0.655774, 3.38758, 18.5207, -12.7523)
+cull_mask = 1
+fov = 54.0
+script = ExtResource("2_aa5h5")
+
+[node name="Table" parent="." instance=ExtResource("4_lyupv")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 44.8241, 7.52733, -48.0862)
+script = ExtResource("5_0er2v")
+
+[node name="Table_body" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table_body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.4658, 4.49635, -48.0666)
+shape = SubResource("BoxShape3D_j55t8")
+
+[node name="airhockey_scene - Untextured" parent="." instance=ExtResource("5_ihbuq")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Controls" parent="CanvasLayer" instance=ExtResource("4_5d3dx")]

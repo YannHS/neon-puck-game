@@ -1,0 +1,520 @@
+[gd_scene load_steps=18 format=3 uid="uid://cxd8aqt0n7h8"]
+
+[ext_resource type="Script" path="res://controls.gd" id="1_a3lbs"]
+[ext_resource type="Script" path="res://AnimationPlayer_clickextend.gd" id="1_ubktc"]
+[ext_resource type="Texture2D" uid="uid://cxiq2vbjmdx3e" path="res://Assets/box.png" id="2_fbeqn"]
+[ext_resource type="Texture2D" uid="uid://b7x5jrau74c2x" path="res://Assets/Setting Icon.png" id="3_k6n0a"]
+[ext_resource type="Texture2D" uid="uid://d2vepeyg42y4y" path="res://Assets/Exit.png" id="4_voedi"]
+[ext_resource type="Texture2D" uid="uid://qrho1fi227wd" path="res://Assets/Music.png" id="5_ny3x6"]
+[ext_resource type="Texture2D" uid="uid://bukuooalogl8h" path="res://Assets/Music_stop.png" id="6_sq4vi"]
+[ext_resource type="AudioStream" uid="uid://4btlxn6qwp42" path="res://Assets/1月19日.MP3" id="7_31yhy"]
+[ext_resource type="Script" path="res://Background_music_loop.gd" id="8_7l82w"]
+
+[sub_resource type="Animation" id="Animation_77q3u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(762, 397)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cfa5s"]
+resource_name = "popup_ani"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(821, 462.3), Vector2(762, 397)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.7, 0.7), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bf4vh"]
+_data = {
+"RESET": SubResource("Animation_77q3u"),
+"popup_ani": SubResource("Animation_cfa5s")
+}
+
+[sub_resource type="Animation" id="Animation_84xbb"]
+resource_name = "Extend_settingbox"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Setting:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.314159, 0.628319, 0.942478, 1.25664, 1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("box:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1846.81, 81.58), Vector2(1846.81, 106.1), Vector2(1846.81, 130.6), Vector2(1846.81, 155.1), Vector2(1846.81, 179.6), Vector2(1846.81, 204)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("box:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1e-05), Vector2(1, 0.16), Vector2(1, 0.32), Vector2(1, 0.48), Vector2(1, 0.64), Vector2(1, 0.8)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -235), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node2D/Exit_game:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Node2D/Exit_game:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.5, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node2D/Music:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2, 2.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Node2D/Music:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(2, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7tyn5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Setting:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("box:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("box:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1067, 81.58)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node2D/Exit_game:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Node2D/Exit_game:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node2D/Music:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Node2D/Music:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eg8sp"]
+_data = {
+"Extend_settingbox": SubResource("Animation_84xbb"),
+"RESET": SubResource("Animation_7tyn5")
+}
+
+[sub_resource type="Animation" id="Animation_v0eur"]
+resource_name = "new_animation"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lrowl"]
+_data = {
+"new_animation": SubResource("Animation_v0eur")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_a3lbs")
+metadata/_edit_vertical_guides_ = [-88.0]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1919.0
+offset_bottom = 1080.0
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 762.0
+offset_top = 397.0
+offset_right = 1158.0
+offset_bottom = 619.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.043
+anchor_right = 0.5
+anchor_bottom = 0.043
+offset_left = -69.5
+offset_top = 14.159
+offset_right = 69.5
+offset_bottom = 37.159
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Please Confirm.....
+"
+
+[node name="Label2" type="Label" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -28.0
+offset_right = 101.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Exit the game?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cancel_back" type="ColorRect" parent="Control/Panel"]
+modulate = Color(0.309804, 0.309804, 0.309804, 0.364706)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 156.0
+offset_right = -198.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Exit_back" type="ColorRect" parent="Control/Panel"]
+modulate = Color(0.309804, 0.309804, 0.309804, 0.364706)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 200.0
+offset_top = 156.0
+offset_right = 2.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Cancel_but" type="Button" parent="Control/Panel"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -66.0
+offset_right = 199.0
+offset_bottom = 1.0
+grow_vertical = 0
+text = "Cancel"
+flat = true
+
+[node name="Exit_but" type="Button" parent="Control/Panel"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -197.0
+offset_top = -66.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Exit
+"
+flat = true
+
+[node name="Line2D" type="Line2D" parent="Control/Panel"]
+modulate = Color(1, 1, 1, 0.235294)
+position = Vector2(1, 3.16247)
+scale = Vector2(1, 0.96439)
+points = PackedVector2Array(198, 227, 198, 158.444)
+width = 1.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="Control/Panel"]
+modulate = Color(1, 1, 1, 0.235294)
+position = Vector2(-5.99998, 1)
+scale = Vector2(1.00971, 1)
+points = PackedVector2Array(6, 155, 202, 155, 398, 155)
+width = 1.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+libraries = {
+"": SubResource("AnimationLibrary_bf4vh")
+}
+
+[node name="box" type="Sprite2D" parent="."]
+self_modulate = Color(0.866667, 0.866667, 0.866667, 1)
+position = Vector2(1067, 81.58)
+scale = Vector2(1, 1e-05)
+texture = ExtResource("2_fbeqn")
+region_enabled = true
+region_rect = Rect2(933, 387, 54, 306)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Music" type="TextureButton" parent="Node2D"]
+visible = false
+self_modulate = Color(0, 0, 0, 0.901961)
+offset_left = 1823.0
+offset_top = 109.0
+offset_right = 1898.0
+offset_bottom = 184.0
+scale = Vector2(0.589476, 0.589476)
+toggle_mode = true
+texture_normal = ExtResource("5_ny3x6")
+texture_pressed = ExtResource("6_sq4vi")
+stretch_mode = 5
+
+[node name="Exit_game" type="TextureButton" parent="Node2D"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_left = 1823.0
+offset_top = 246.0
+offset_right = 1898.0
+offset_bottom = 321.0
+scale = Vector2(0.5856, 0.5856)
+texture_normal = ExtResource("4_voedi")
+
+[node name="Setting" type="TextureButton" parent="."]
+offset_left = 1698.81
+offset_top = -86.0
+offset_right = 1994.81
+offset_bottom = 210.0
+scale = Vector2(0.296036, 0.296036)
+pivot_offset = Vector2(148, 148)
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("3_k6n0a")
+
+[node name="Background_music_loop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_31yhy")
+autoplay = true
+script = ExtResource("8_7l82w")
+
+[node name="Extend_settingbox" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eg8sp")
+}
+script = ExtResource("1_ubktc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lrowl")
+}
+
+[connection signal="mouse_entered" from="Control/Panel/Cancel_but" to="." method="_on_cancel_back_mouse_entered"]
+[connection signal="mouse_exited" from="Control/Panel/Cancel_but" to="." method="_on_cancel_back_mouse_exited"]
+[connection signal="pressed" from="Control/Panel/Cancel_but" to="." method="_on_cancel_but_pressed"]
+[connection signal="mouse_entered" from="Control/Panel/Exit_but" to="." method="_on_exit_but_mouse_entered"]
+[connection signal="mouse_exited" from="Control/Panel/Exit_but" to="." method="_on_exit_but_mouse_exited"]
+[connection signal="pressed" from="Control/Panel/Exit_but" to="." method="_on_exit_but_pressed"]
+[connection signal="toggled" from="Node2D/Music" to="Background_music_loop" method="_on_music_toggled"]
+[connection signal="pressed" from="Node2D/Exit_game" to="." method="_on_exit_game_pressed"]
+[connection signal="toggled" from="Setting" to="Extend_settingbox" method="_on_setting_toggled"]
