@@ -1,22 +1,26 @@
 [gd_scene load_steps=26 format=3 uid="uid://3dcgt4vq1u15"]
 
-[ext_resource type="Texture2D" uid="uid://bdkqopxubk5wk" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.exr" id="1_qeuh0"]
 [ext_resource type="Script" path="res://assets/TableRoom.gd" id="1_yah35"]
 [ext_resource type="PackedScene" uid="uid://cq52uiedrahl4" path="res://assets/blue_pusher.tscn" id="2_roamh"]
 [ext_resource type="PackedScene" uid="uid://cmedwb4wiswdg" path="res://assets/red_pusher.tscn" id="3_0l84j"]
 [ext_resource type="PackedScene" uid="uid://dffmqqdt0pvvr" path="res://assets/puck.tscn" id="4_5dbh7"]
-[ext_resource type="PackedScene" uid="uid://bgifryudbqyy0" path="res://assets/table.tscn" id="5_axt8n"]
 [ext_resource type="Script" path="res://assets/Puck.gd" id="6_326c3"]
 [ext_resource type="AudioStream" uid="uid://bd3kah0v7bs1p" path="res://assets/PuckCollide.mp3" id="7_n1ym0"]
 [ext_resource type="Theme" uid="uid://cxmrbvwxtli4l" path="res://new_theme.tres" id="8_2twpo"]
 [ext_resource type="Script" path="res://assets/RedPusher.gd" id="8_8q7jn"]
+[ext_resource type="PackedScene" uid="uid://bgifryudbqyy0" path="res://assets/table.tscn" id="8_t82sy"]
 [ext_resource type="PackedScene" uid="uid://c0cyt3bun5ocy" path="res://assets/cabinet.glb" id="11_1g461"]
+[ext_resource type="PackedScene" uid="uid://b3v6845wlxuq0" path="res://assets/tiles.glb" id="12_fx2yt"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1xbs8"]
-panorama = ExtResource("1_qeuh0")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8rg31"]
+sky_top_color = Color(0.55, 0.55, 0.55, 1)
+sky_horizon_color = Color(0.670588, 0.670588, 0.670588, 1)
+ground_bottom_color = Color(0.168627, 0.168627, 0.168627, 1)
+sun_angle_max = 0.0
+sun_curve = 0.540751
 
 [sub_resource type="Sky" id="Sky_fv38l"]
-sky_material = SubResource("PanoramaSkyMaterial_1xbs8")
+sky_material = SubResource("ProceduralSkyMaterial_8rg31")
 
 [sub_resource type="Environment" id="Environment_ft0pa"]
 background_mode = 2
@@ -36,6 +40,13 @@ glow_enabled = true
 glow_intensity = 8.0
 glow_blend_mode = 1
 glow_hdr_threshold = 0.87
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c6h5l"]
+radius = 0.0641514
+height = 0.50022
+
+[sub_resource type="LabelSettings" id="LabelSettings_678r6"]
+font_size = 32
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jb4lc"]
 
@@ -64,115 +75,11 @@ radius = 0.0562144
 [sub_resource type="BoxShape3D" id="BoxShape3D_iflaw"]
 size = Vector3(0.226433, 1, 0.519339)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c6h5l"]
-radius = 0.0641514
-height = 0.50022
-
-[sub_resource type="LabelSettings" id="LabelSettings_678r6"]
-font_size = 32
-
 [node name="TableRoom" type="Node3D"]
 script = ExtResource("1_yah35")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ft0pa")
-
-[node name="TableAsset" parent="." instance=ExtResource("5_axt8n")]
-
-[node name="RaycastSurfaceCollision" type="StaticBody3D" parent="TableAsset"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="TableSurface" type="CollisionShape3D" parent="TableAsset/RaycastSurfaceCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00271052, 0.50823, 0.00347635)
-visible = false
-shape = SubResource("WorldBoundaryShape3D_jb4lc")
-
-[node name="PuckWallCollision" type="StaticBody3D" parent="TableAsset"]
-physics_material_override = SubResource("PhysicsMaterial_d0k7o")
-
-[node name="LeftWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.582427, 0.509037, 0)
-visible = false
-shape = SubResource("BoxShape3D_ox4tf")
-
-[node name="RightWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.573182, 0.509037, 0)
-visible = false
-shape = SubResource("BoxShape3D_ox4tf")
-
-[node name="CloseRightWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.495116, 0.509037, -0.915242)
-visible = false
-shape = SubResource("BoxShape3D_oru0x")
-
-[node name="FarRightWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.495116, 0.509037, 0.908737)
-visible = false
-shape = SubResource("BoxShape3D_oru0x")
-
-[node name="CloseCenterWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509037, -0.998155)
-visible = false
-shape = SubResource("BoxShape3D_oru0x")
-
-[node name="FarCenterWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509, 0.998)
-visible = false
-shape = SubResource("BoxShape3D_oru0x")
-
-[node name="CloseLeftWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.495, 0.509037, -0.915242)
-visible = false
-shape = SubResource("BoxShape3D_oru0x")
-
-[node name="FarLeftWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.495, 0.509037, 0.908737)
-visible = false
-shape = SubResource("BoxShape3D_oru0x")
-
-[node name="PuckFloorCollision" type="StaticBody3D" parent="TableAsset"]
-physics_material_override = SubResource("PhysicsMaterial_d0k7o")
-
-[node name="BottomWall" type="CollisionShape3D" parent="TableAsset/PuckFloorCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00542104, -0.0341913, 0.0069527)
-visible = false
-shape = SubResource("BoxShape3D_e7ly1")
-
-[node name="Puck" type="RigidBody3D" parent="TableAsset" node_paths=PackedStringArray("StartMarkerBlue", "StartMarkerRed")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228641, 0.524086, 0.272856)
-collision_layer = 5
-collision_mask = 5
-physics_material_override = SubResource("PhysicsMaterial_5syyr")
-script = ExtResource("6_326c3")
-StartMarkerBlue = NodePath("../../PuckStartBlue")
-StartMarkerRed = NodePath("../../PuckStartRed")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TableAsset/Puck"]
-visible = false
-shape = SubResource("BoxShape3D_ebumx")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="TableAsset/Puck"]
-visible = false
-shape = SubResource("CylinderShape3D_glyjy")
-
-[node name="PuckAsset" parent="TableAsset/Puck" instance=ExtResource("4_5dbh7")]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TableAsset/Puck"]
-stream = ExtResource("7_n1ym0")
-volume_db = -7.376
-
-[node name="CloseGoalCheck" type="Area3D" parent="TableAsset"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462831, -1)
-
-[node name="CloseGoal" type="CollisionShape3D" parent="TableAsset/CloseGoalCheck"]
-shape = SubResource("BoxShape3D_iflaw")
-
-[node name="FarGoalCheck" type="Area3D" parent="TableAsset"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.463, 1)
-
-[node name="FarGoal" type="CollisionShape3D" parent="TableAsset/FarGoalCheck"]
-shape = SubResource("BoxShape3D_iflaw")
 
 [node name="3DCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.669027, 0.743238, 0, -0.743238, 0.669027, 0, 1.85717, 1.39235)
@@ -184,13 +91,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.8
 projection = 1
 size = 1.5
 far = 10.0
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.737733, 0.600621, -0.308229, 0.28177, 0.688849, 0.667902, 0.613479, 0.405883, -0.677424, 0, 0, 0)
-light_color = Color(1, 0.972549, 0.890196, 1)
-light_energy = 0.515
-light_angular_distance = 0.91
-shadow_enabled = true
 
 [node name="RedBound" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0107747, 0)
@@ -348,16 +248,128 @@ text = "Menu"
 [node name="cabinet" parent="." instance=ExtResource("11_1g461")]
 transform = Transform3D(0.263974, 0, 0.96453, 0, 1, 0, -0.96453, 0, 0.263974, -1.18733, 0, -0.37792)
 
+[node name="cabinet2" parent="." instance=ExtResource("11_1g461")]
+transform = Transform3D(0.440691, 0, -0.897659, 0, 1, 0, 0.897659, 0, 0.440691, 1.53157, 0, -0.682019)
+
 [node name="PuckStartBlue" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.528, -0.179)
 
 [node name="PuckStartRed" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.513343, 0.179018)
 
-[connection signal="body_entered" from="TableAsset/Puck" to="TableAsset/Puck" method="_on_body_entered"]
-[connection signal="body_entered" from="TableAsset/CloseGoalCheck" to="." method="_on_close_goal_entered"]
-[connection signal="body_entered" from="TableAsset/FarGoalCheck" to="." method="_on_far_goal_entered"]
+[node name="tiles" parent="." instance=ExtResource("12_fx2yt")]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.275134, 0.961406, 0, -0.961406, -0.275134, 0, 3.68798, -0.702393)
+light_color = Color(1, 0.698039, 0.65098, 1)
+shadow_enabled = true
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.644831, 0.734827, 0.210292, -0.351399, -0.529352, 0.772208, 0.678758, 0.424047, 0.59956, 0.73163, 1.3892, 1.76327)
+light_color = Color(0.52549, 0.85098, 0.87451, 1)
+shadow_enabled = true
+
+[node name="TableAsset" parent="." instance=ExtResource("8_t82sy")]
+
+[node name="RaycastSurfaceCollision" type="StaticBody3D" parent="TableAsset"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="TableSurface" type="CollisionShape3D" parent="TableAsset/RaycastSurfaceCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00271052, 0.50823, 0.00347635)
+visible = false
+shape = SubResource("WorldBoundaryShape3D_jb4lc")
+
+[node name="PuckWallCollision" type="StaticBody3D" parent="TableAsset"]
+physics_material_override = SubResource("PhysicsMaterial_d0k7o")
+
+[node name="LeftWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.582427, 0.509037, 0)
+visible = false
+shape = SubResource("BoxShape3D_ox4tf")
+
+[node name="RightWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.573182, 0.509037, 0)
+visible = false
+shape = SubResource("BoxShape3D_ox4tf")
+
+[node name="CloseRightWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.495116, 0.509037, -0.915242)
+visible = false
+shape = SubResource("BoxShape3D_oru0x")
+
+[node name="FarRightWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.495116, 0.509037, 0.908737)
+visible = false
+shape = SubResource("BoxShape3D_oru0x")
+
+[node name="CloseCenterWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509037, -0.998155)
+visible = false
+shape = SubResource("BoxShape3D_oru0x")
+
+[node name="FarCenterWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509, 0.998)
+visible = false
+shape = SubResource("BoxShape3D_oru0x")
+
+[node name="CloseLeftWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.495, 0.509037, -0.915242)
+visible = false
+shape = SubResource("BoxShape3D_oru0x")
+
+[node name="FarLeftWall" type="CollisionShape3D" parent="TableAsset/PuckWallCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.495, 0.509037, 0.908737)
+visible = false
+shape = SubResource("BoxShape3D_oru0x")
+
+[node name="PuckFloorCollision" type="StaticBody3D" parent="TableAsset"]
+physics_material_override = SubResource("PhysicsMaterial_d0k7o")
+
+[node name="BottomWall" type="CollisionShape3D" parent="TableAsset/PuckFloorCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00542104, -0.0341913, 0.0069527)
+visible = false
+shape = SubResource("BoxShape3D_e7ly1")
+
+[node name="Puck" type="RigidBody3D" parent="TableAsset" node_paths=PackedStringArray("StartMarkerBlue", "StartMarkerRed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228641, 0.524086, 0.272856)
+collision_layer = 5
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_5syyr")
+script = ExtResource("6_326c3")
+StartMarkerBlue = NodePath("../../PuckStartBlue")
+StartMarkerRed = NodePath("../../PuckStartRed")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TableAsset/Puck"]
+visible = false
+shape = SubResource("BoxShape3D_ebumx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="TableAsset/Puck"]
+visible = false
+shape = SubResource("CylinderShape3D_glyjy")
+
+[node name="PuckAsset" parent="TableAsset/Puck" instance=ExtResource("4_5dbh7")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TableAsset/Puck"]
+stream = ExtResource("7_n1ym0")
+volume_db = -7.376
+
+[node name="CloseGoalCheck" type="Area3D" parent="TableAsset"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462831, -1)
+
+[node name="CloseGoal" type="CollisionShape3D" parent="TableAsset/CloseGoalCheck"]
+shape = SubResource("BoxShape3D_iflaw")
+
+[node name="FarGoalCheck" type="Area3D" parent="TableAsset"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.463, 1)
+
+[node name="FarGoal" type="CollisionShape3D" parent="TableAsset/FarGoalCheck"]
+shape = SubResource("BoxShape3D_iflaw")
+
 [connection signal="pressed" from="PauseMenu/Continue" to="." method="_paused_continue_pressed"]
 [connection signal="pressed" from="PauseMenu/Exit" to="." method="_paused_exit_pressed"]
 [connection signal="pressed" from="HomeMenu/Continue" to="." method="_paused_continue_pressed"]
 [connection signal="pressed" from="HomeMenu/Exit" to="." method="_paused_exit_pressed"]
+[connection signal="body_entered" from="TableAsset/Puck" to="TableAsset/Puck" method="_on_body_entered"]
+[connection signal="body_entered" from="TableAsset/CloseGoalCheck" to="." method="_on_close_goal_entered"]
+[connection signal="body_entered" from="TableAsset/FarGoalCheck" to="." method="_on_far_goal_entered"]
