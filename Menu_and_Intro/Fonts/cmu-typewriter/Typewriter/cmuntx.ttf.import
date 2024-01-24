@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://ba5kker1ook55"
-path="res://.godot/imported/cmuntx.ttf-7d113ae6c323eb1df18f6618d6943a8f.fontdata"
+path="res://.godot/imported/cmuntx.ttf-5ea32f1cd58653f253c981f947d700f8.fontdata"
 
 [deps]
 
-source_file="res://Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/cmu-typewriter/Typewriter/cmuntx.ttf"
-dest_files=["res://.godot/imported/cmuntx.ttf-7d113ae6c323eb1df18f6618d6943a8f.fontdata"]
+source_file="res://Fonts/cmu-typewriter/Typewriter/cmuntx.ttf"
+dest_files=["res://.godot/imported/cmuntx.ttf-5ea32f1cd58653f253c981f947d700f8.fontdata"]
 
 [params]
 

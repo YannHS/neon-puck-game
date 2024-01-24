@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://b26fbupfafj3g"
-path="res://.godot/imported/ConnectionII.otf-31ae73c65c4b281a27492b24160ee39c.fontdata"
+path="res://.godot/imported/ConnectionII.otf-17963af10076cd6d2d1ca045430477a0.fontdata"
 
 [deps]
 
-source_file="res://Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/connection_ii/ConnectionII.otf"
-dest_files=["res://.godot/imported/ConnectionII.otf-31ae73c65c4b281a27492b24160ee39c.fontdata"]
+source_file="res://Fonts/connection_ii/ConnectionII.otf"
+dest_files=["res://.godot/imported/ConnectionII.otf-17963af10076cd6d2d1ca045430477a0.fontdata"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://ciamahunqekxk"
-path="res://.godot/imported/Connection.otf-1df92e4f6e09302d7fe3f5815101cd1d.fontdata"
+path="res://.godot/imported/Connection.otf-9966644769d3ea1b99f6d314dcd483fe.fontdata"
 
 [deps]
 
-source_file="res://Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/connection/Connection.otf"
-dest_files=["res://.godot/imported/Connection.otf-1df92e4f6e09302d7fe3f5815101cd1d.fontdata"]
+source_file="res://Fonts/connection/Connection.otf"
+dest_files=["res://.godot/imported/Connection.otf-9966644769d3ea1b99f6d314dcd483fe.fontdata"]
 
 [params]
 

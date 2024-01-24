@@ -366,6 +366,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.463, 1)
 [node name="FarGoal" type="CollisionShape3D" parent="TableAsset/FarGoalCheck"]
 shape = SubResource("BoxShape3D_iflaw")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49607, -0.291388)
+light_energy = 0.188
+
 [connection signal="pressed" from="PauseMenu/Continue" to="." method="_paused_continue_pressed"]
 [connection signal="pressed" from="PauseMenu/Exit" to="." method="_paused_exit_pressed"]
 [connection signal="pressed" from="HomeMenu/Continue" to="." method="_paused_continue_pressed"]

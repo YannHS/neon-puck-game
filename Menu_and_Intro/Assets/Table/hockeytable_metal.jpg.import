@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gm8jkgl00vus"
-path.s3tc="res://.godot/imported/hockeytable_metal.jpg-03a457f9a480785dbaf6c5086d6835b0.s3tc.ctex"
+path.s3tc="res://.godot/imported/hockeytable_metal.jpg-4c660be8aa05301e02179b4bddaa165d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/table/hockeytable_metal.jpg"
-dest_files=["res://.godot/imported/hockeytable_metal.jpg-03a457f9a480785dbaf6c5086d6835b0.s3tc.ctex"]
+source_file="res://Assets/Table/hockeytable_metal.jpg"
+dest_files=["res://.godot/imported/hockeytable_metal.jpg-4c660be8aa05301e02179b4bddaa165d.s3tc.ctex"]
 
 [params]
 
